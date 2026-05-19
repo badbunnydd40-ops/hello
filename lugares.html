@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestros Lugares Especiales 🤎</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=300;400;600&display=swap" rel="stylesheet">
+<header>
+
+<h1 onclick="playKiss()">Nuestra Historia 🤎</h1>
+
+<nav>
+<a href="index.html">Fotos</a>
+<a href="carta.html">Carta y momentos juntos</a>
+<a href="playlist.html">Playlist</a>
+<a href="lugares.html">Lugares</a>
+<a href="boton.html">Boton</a>
+</nav>
+
+</header>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background-color: #f7f3ef; 
+      color: #4a3e3d;
+      overflow-x: hidden; 
+      position: relative;
+    }
+
+    
+    .container { 
+      padding: 40px 20px; 
+      max-width: 900px; 
+      margin-left: auto; 
+      margin-right: auto; 
+      position: relative;
+      z-index: 10; 
+    }
+    
+    .card { background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(139, 115, 85, 0.1); }
+    
+   
+    h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #5c443c; text-align: center; margin-bottom: 10px; }
+    p { text-align: center; line-height: 1.6; color: #7a6865; margin-bottom: 25px; }
+
+    
+    #map { 
+      height: 550px; 
+      width: 100%; 
+      border-radius: 15px; 
+      border: 3px solid #8c6d62; 
+      box-shadow: 0 8px 16px rgba(140, 109, 98, 0.15);
+    }
+
+    
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+      padding: 5px;
+      background-color: #ffffff;
+      border: 1px solid #d9cecc;
+    }
+    .leaflet-popup-content {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #4a3e3d;
+    }
+    .leaflet-popup-content b {
+      color: #5c443c;
+    }
+
+    
+    .elemento-caida {
+      position: fixed;
+      top: -50px;
+      z-index: 1; 
+      user-select: none;
+      pointer-events: none; 
+      animation: caer linear forwards;
+    }
+
+    
+    .texto-caida {
+      font-family: 'Dancing Script', cursive;
+      font-weight: bold;
+      color: #8c6d62;
+      white-space: nowrap;
+    }
+
+    @keyframes caer {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <div class="container">
+    <div class="card">
+      <h1>Nuestros Lugares Especiales</h1>
+      <p>Los rincones del mundo que se volvieron mágicos desde el momento en que estuvimos ahí juntos. Haz clic en los corazones marrones para recordar.</p>
+      
+      
+      <div id="map"></div>
+    </div>
+  </div>
+
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    
+    var map = L.map('map').setView([41.4750, 1.9500], 12); 
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    
+    var iconoCorazonMarron = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/9356/9356230.png', 
+      iconSize: [40, 40], 
+      iconAnchor: [20, 40], 
+      popupAnchor: [0, -40] 
+    });
+
+    
+    var marker1 = L.marker([41.4058, 2.0191], {icon: iconoCorazonMarron}).addTo(map);
+    marker1.bindPopup("<b>Aquí nos conocimos 🤎</b><br>Pues aqui lydia fue donde se forma nuestra bonita historia aqui fue donde nos vimos por primera vez en bedisco jejej que gran recuerdo tengo de verdad muchisimas gracias por todo mi vida te amoooo");
+
+    
+    var marker2 = L.marker([41.4056, 2.0194], {icon: iconoCorazonMarron}).addTo(map);
+    marker2.bindPopup("<b>Nuestro primer beso 💋</b><br>y tambien fue donde nos dimos nuestro primer beso ehhhh jejeje te quiero mucho chocho");
+
+    
+    var marker3 = L.marker([41.5353, 1.8887], {icon: iconoCorazonMarron}).addTo(map);
+    marker3.bindPopup("<b>Nuestra segunda cita 🏞️</b><br>aqui en el lago fue cuando quedamos por segunda vez que fuimos a los bancos del lago de delante de tu casa y ahi fue cambiando todo te amo muchisimo chochona ");
+
+
+    
+    const elementosParaCaer = [
+      '🤎', '🌻', '🌷', '🤎', '🌻', '🌷', 
+      'te quiero mucho', 'lyli 🤎', 'siempre juntos', 'mi niña' ,'mi tequi','mi princesa','mi todo','cagona','chochona'
+    ];
+
+    function crearElementoFlotante() {
+      const elemento = document.createElement('div');
+      elemento.classList.add('elemento-caida');
+      
+      
+      const contenidoAcuñado = elementosParaCaer[Math.floor(Math.random() * elementosParaCaer.length)];
+      elemento.innerText = contenidoAcuñado;
+
+      
+      if (contenidoAcuñado.length > 2) {
+        elemento.classList.add('texto-caida');
+        elemento.style.fontSize = (Math.random() * 8 + 18) + 'px'; 
+      } else {
+        elemento.style.fontSize = (Math.random() * 15 + 20) + 'px'; 
+      }
+
+      
+      elemento.style.left = Math.random() * 100 + 'vw';
+      
+      const duracion = Math.random() * 4 + 4;
+      elemento.style.animationDuration = duracion + 's';
+      
+     
+      elemento.style.opacity = Math.random() * 0.4 + 0.5;
+
+      document.body.appendChild(elemento);
+
+      
+      setTimeout(() => {
+        elemento.remove();
+      }, duracion * 1000);
+    }
+
+    
+    setInterval(crearElementoFlotante, 400);
+  </script>
+</body>
+</html>

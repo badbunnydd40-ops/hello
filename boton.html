@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Me Extrañas? 🤎</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Fuentes románticas y estéticas -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    /* Fondo crema cálido */
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background-color: #f7f3ef; 
+      color: #4a3e3d; 
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* --- HEADER ESTILO MARRÓN --- */
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(139, 115, 85, 0.05);
+    }
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #5c443c;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    nav a {
+      color: #7a6865;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #5c443c;
+    }
+
+    /* --- CONTENEDOR PRINCIPAL --- */
+    .container { 
+      padding: 40px 20px; 
+      max-width: 600px; 
+      margin-left: auto; 
+      margin-right: auto; 
+      position: relative;
+      z-index: 10; /* Por encima de la lluvia */
+    }
+    
+    .card { 
+      background: white; 
+      padding: 40px 30px; 
+      border-radius: 20px; 
+      box-shadow: 0 10px 25px rgba(139, 115, 85, 0.1); 
+      text-align: center; 
+    }
+    
+    h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #5c443c; margin-bottom: 15px; }
+    p { line-height: 1.6; color: #7a6865; margin-bottom: 30px; font-size: 1.1rem; }
+
+    /* --- EL BOTÓN DEL AMOR MARRÓN ESTÉTICO --- */
+    .boton-amor {
+      background-color: #8c6d62;
+      color: white;
+      padding: 25px 50px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(140, 109, 98, 0.3);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .boton-amor:hover { 
+      transform: scale(1.1); 
+      background-color: #a18276; 
+      box-shadow: 0 12px 25px rgba(140, 109, 98, 0.5); 
+    }
+    .boton-amor:active { transform: scale(0.95); }
+
+    /* Mensaje de éxito tras pulsar */
+    #mensaje-confirmacion { 
+      margin-top: 25px; 
+      font-weight: 600; 
+      font-size: 1.2rem; 
+      color: #5c443c; 
+      display: none; 
+      animation: aparecer 0.5s ease forwards;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- LLUVIA MÁGICA DE LYDIA --- */
+    .elemento-caida {
+      position: fixed;
+      top: -50px;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none; /* No interfiere con los clics */
+      animation: caer linear forwards;
+    }
+    .texto-caida {
+      font-family: 'Dancing Script', cursive;
+      font-weight: bold;
+      color: #8c6d62;
+      white-space: nowrap;
+    }
+    @keyframes caer {
+      to { transform: translateY(105vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 onclick="playKiss()">Nuestra Historia 🤎</h1>
+    <nav>
+      <a href="index.html">Fotos</a>
+      <a href="carta.html">Carta y momentos juntos</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="lugares.html">Lugares</a>
+      <a href="boton.html">Boton</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h1>¿Pensando en mí?</h1>
+      <p>Si me extrañas en este momento, si quieres que te llame o si simplemente te acordaste de nosotros y quieres sacarme una sonrisa, presiona el botón.</p>
+      
+      <!-- Botón configurado con el corazón marrón -->
+      <button class="boton-amor" onclick="enviarAviso()">Púlsame 🤎</button>
+      
+      <p id="mensaje-confirmacion">¡Aviso enviado! Mi móvil acaba de vibrar. Prepárate porque te voy a escribir o llamar ahora mismo... Te amo. 😘</p>
+    </div>
+  </div>
+
+  <script>
+    function enviarAviso() {
+      // Tu enlace oficial de Formspree ya integrado
+      const formspreeEndpoint = "https://formspree.io/f/mkoeovgj"; 
+      
+      fetch(formspreeEndpoint, {
+        method: 'POST',
+        body: JSON.stringify({ 
+          Mensaje: "¡Lydia te está extrañando y pensando en ti ahora mismo! 🤎",
+          Hora: new Date().toLocaleString()
+        }),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          document.getElementById('mensaje-confirmacion').style.display = 'block';
+        } else {
+          alert("Hubo un error al enviar el aviso, pero seguro que el amor flotando en el aire me llega igual.");
+        }
+      }).catch(error => {
+        alert("Problema de conexión. ¡Dímelo por WhatsApp!");
+      });
+    }
+
+    // --- EFECTO EXCLUSIVO: LLUVIA DE FLORES Y CORAZONES MARRONES ---
+    const elementosParaCaer = [
+      '🤎', '🌻', '🌷', '🤎', '🌻', '🌷',
+      'Te quiero mucho', 'Lydia 🤎', 'Siempre juntos', 'Mi niña'
+    ];
+
+    function crearElementoFlotante() {
+      const elemento = document.createElement('div');
+      elemento.classList.add('elemento-caida');
+      
+      const contenido = elementosParaCaer[Math.floor(Math.random() * elementosParaCaer.length)];
+      elemento.innerText = contenido;
+
+      if (contenido.length > 2) {
+        elemento.classList.add('texto-caida');
+        elemento.style.fontSize = (Math.random() * 8 + 18) + 'px';
+      } else {
+        elemento.style.fontSize = (Math.random() * 15 + 20) + 'px';
+      }
+
+      elemento.style.left = Math.random() * 100 + 'vw';
+      const duracion = Math.random() * 4 + 4;
+      elemento.style.animationDuration = duracion + 's';
+      elemento.style.opacity = Math.random() * 0.4 + 0.5;
+
+      document.body.appendChild(elemento);
+
+      setTimeout(() => { elemento.remove(); }, duracion * 1000);
+    }
+
+    setInterval(crearElementoFlotante, 400);
+
+    function playKiss() {
+      console.log("¡Clic en el título!");
+    }
+  </script>
+</body>
+</html>
